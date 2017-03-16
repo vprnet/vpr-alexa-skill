@@ -47,9 +47,9 @@ def create_app():
     """
     app = Flask(__name__)
     if 'FLASK_SECRET_KEY' not in os.environ:
-        print('### No FLASK_SECRET_KEY set in environment! '
-              'Please set the FLASK_SECRET_KEY in the systems environment '
-              'settings and restart the application.')
+        logger.warn('!!! No FLASK_SECRET_KEY set in environment')
+        logger.info('Please set the FLASK_SECRET_KEY in the systems environment'
+                    ' settings and restart the application.')
         return None
 
     app.secret_key = os.environ['FLASK_SECRET_KEY']
@@ -57,7 +57,7 @@ def create_app():
         app.debug = True
     if 'DISABLE_ASK_VERIFY_REQUESTS' in os.environ:
         if os.environ['DISABLE_ASK_VERIFY_REQUESTS'].lower() == 'true':
-            print('### Disabling ASK Request verification!!!')
+            logger.warn('!!! Disabling ASK Request verification')
             app.config['ASK_VERIFY_REQUESTS'] = False
 
     app.register_blueprint(alexa)
