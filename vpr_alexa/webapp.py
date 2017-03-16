@@ -42,15 +42,19 @@ def play_program(program_name=''):
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
-    logger.info('Pausing current stream: %s' % current_stream)
+    logger.info('Pausing current stream: %s' % current_stream.url)
     return audio().stop()
 
 
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
-    logger.info('Resuming current stream: %s' % current_stream)
+    logger.info('Resuming current stream: %s' % current_stream.url)
     return audio().resume()
 
+
+@ask.intent('AMAZON.CancelIntent')
+def cancel_session():
+    return statement('Thanks for listening!')
 
 @ask.session_ended
 def session_ended():
