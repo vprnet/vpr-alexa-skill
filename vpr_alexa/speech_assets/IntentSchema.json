@@ -1,0 +1,28 @@
+{
+  "intents": [
+    {
+      "intent": "ListPrograms"
+    },
+    {
+      "intent": "PlayProgram",
+      "slots": [
+        {
+          "name": "program_name",
+          "type": "LIST_OF_PROGRAMS"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.PauseIntent"
+    },
+    {
+      "intent": "PlaylistDemoIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.ResumeIntent"
+    }
+  ]
+}
