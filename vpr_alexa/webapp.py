@@ -42,12 +42,12 @@ def play_program(program_name=''):
 
 @ask.on_playback_started()
 def started(offset, token):
-    logger.info('Playback started at %d for token %s: ' % (offset, token))
+    logger.info('Playback started at %d ms for token %s: ' % (offset, token))
 
 
 @ask.on_playback_stopped()
 def stopped(offset, token):
-    logger.info('Playback stopped at %d for token %s: ' % (offset, token))
+    logger.info('Playback stopped at %d ms for token %s: ' % (offset, token))
 
 
 @ask.intent('AMAZON.PauseIntent')
@@ -85,7 +85,7 @@ def create_app():
     """
     app = Flask(__name__)
     if 'FLASK_SECRET_KEY' not in os.environ:
-        logger.warn('!!! No FLASK_SECRET_KEY set in environment')
+        logger.info('!!! No FLASK_SECRET_KEY set in environment')
         logger.info('Please set the FLASK_SECRET_KEY in the systems environment'
                     ' settings and restart the application.')
         return None
@@ -95,7 +95,7 @@ def create_app():
         app.debug = True
     if 'DISABLE_ASK_VERIFY_REQUESTS' in os.environ:
         if os.environ['DISABLE_ASK_VERIFY_REQUESTS'].lower() == 'true':
-            logger.warn('!!! Disabling ASK Request verification')
+            logger.info('!!! Disabling ASK Request verification')
             app.config['ASK_VERIFY_REQUESTS'] = False
 
     app.register_blueprint(alexa)
