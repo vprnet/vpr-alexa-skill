@@ -5,6 +5,10 @@ from vpr_alexa.webapp import create_app
 import tests.requests as requests
 import pytest
 import json
+import os
+
+if 'FLASK_SECRET_KEY' not in os.environ:
+    os.environ.setdefault('FLASK_SECRET_KEY', 'asdf')
 
 app = create_app()
 app.config['ASK_VERIFY_REQUESTS'] = False

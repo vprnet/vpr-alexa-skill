@@ -40,6 +40,17 @@ def play_program(program_name=''):
         return statement('Sorry, I did not understand your request!')
 
 
+@ask.on_playback_started()
+def started(offset, token, url):
+    logger.info('Playback started of {url} for token {token} '
+                .format(url=url, token=token))
+
+
+@ask.on_playback_stopped()
+def stopped(offset, token):
+    logger.info('Playback stopped for token: ' + token)
+
+
 @ask.intent('AMAZON.PauseIntent')
 def pause():
     logger.info('Pausing current stream: %s' % current_stream.url)
