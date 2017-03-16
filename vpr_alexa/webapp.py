@@ -3,7 +3,7 @@ Flask-Ask based web app
 """
 import os
 from flask import Flask, Blueprint, render_template
-from flask_ask import Ask, question, statement, audio, current_stream
+from flask_ask import Ask, question, statement, audio, request
 from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
@@ -42,25 +42,28 @@ def play_program(program_name=''):
 
 @ask.on_playback_started()
 def started(offset, token):
-    logger.info('Playback started of {url} for token {token} '
-                .format(url=url, token=token))
+    logger.info('Playback started at %l for token %s: ' % (offset, token))
 
 
 @ask.on_playback_stopped()
 def stopped(offset, token):
-    logger.info('Playback stopped for token: ' + token)
+    logger.info('Playback stopped at %l for token %s: ' % (offset, token))
 
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
-    logger.info('Pausing current stream: {url} at {offset}'.format(url=current_stream.url, offset=current_stream.offset))
-    return audio().stop()
+    logger.info('pausing a stream')
+    return audio('Pausing').stop()
 
 
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
-    logger.info('Resuming current stream: {url} at {offset}'.format(url=current_stream.url, offset=current_stream.offset))
-    return audio().resume()
+    return audio('Resuming').resume()
+
+
+@ask.intent('AMAZON.StopIntent')
+def cancel_session():
+    return statement('Thanks for listening!')
 
 
 @ask.intent('AMAZON.CancelIntent')
