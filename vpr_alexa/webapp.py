@@ -4,7 +4,7 @@ Flask-Ask based web app
 import os
 from flask import Flask, Blueprint, render_template
 from flask_ask import Ask, question, statement, audio
-from vpr_alexa import programs
+from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
 alexa = Blueprint('alexa', __name__)
@@ -13,18 +13,22 @@ ask = Ask(route=ASK_ROUTE)
 
 @ask.launch
 def welcome():
+    logger.info("welcome launch")
     return question(render_template('welcome'))\
         .reprompt(render_template('welcome_reprompt'))
 
 
 @ask.intent('ListPrograms')
 def list_programs():
+    logger.info("list programs launch")
     return question(render_template('list_programs'))
 
 
 @ask.intent('PlayProgram')
-def play_program(program_name):
-    if program_name == 'vermont edition':
+def play_program(program_name=''):
+    logger.info("play program launch (program_name: %s)" % program_name)
+
+    if program_name.lower() == 'vermont edition':
         program = programs.latest_vt_edition()
     else:
         program = None

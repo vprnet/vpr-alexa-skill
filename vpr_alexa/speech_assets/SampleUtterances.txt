@@ -1,0 +1,3 @@
+ListPrograms list programs
+PlayProgram play {program_name}
+PlayProgram listen to {program_name}
