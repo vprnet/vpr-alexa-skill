@@ -41,7 +41,7 @@ def play_program(program_name=''):
 
 
 @ask.on_playback_started()
-def started(offset, token, url):
+def started(offset, token):
     logger.info('Playback started of {url} for token {token} '
                 .format(url=url, token=token))
 
@@ -53,13 +53,13 @@ def stopped(offset, token):
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
-    logger.info('Pausing current stream: %s' % current_stream.url)
+    logger.info('Pausing current stream: {url} at {offset}'.format(url=current_stream.url, offset=current_stream.offset))
     return audio().stop()
 
 
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
-    logger.info('Resuming current stream: %s' % current_stream.url)
+    logger.info('Resuming current stream: {url} at {offset}'.format(url=current_stream.url, offset=current_stream.offset))
     return audio().resume()
 
 
