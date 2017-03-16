@@ -52,9 +52,9 @@ def create_app():
     if 'FLASK_DEBUG' in os.environ:
         app.debug = True
     if 'ASK_VERIFY_REQUESTS' in os.environ:
-        if os.environ['ASK_VERIFY_REQUESTS'].lower() == 'true':
+        if os.environ['DISABLE_ASK_VERIFY_REQUESTS'].lower() == 'true':
             print('### Disabling ASK Request verification!!!')
-            app.config['ASK_VERIFY_REQUESTS']
+            app.config['ASK_VERIFY_REQUESTS'] = False
 
     app.register_blueprint(alexa)
     ask.init_app(app)
