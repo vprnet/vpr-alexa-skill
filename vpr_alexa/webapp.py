@@ -3,7 +3,7 @@ Flask-Ask based web app
 """
 import os
 from flask import Flask, Blueprint, render_template
-from flask_ask import Ask, question, statement, audio
+from flask_ask import Ask, question, statement, audio, current_stream
 from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
@@ -38,6 +38,23 @@ def play_program(program_name=''):
         return audio(speech).play(program.url)
     else:
         return statement('Sorry, I did not understand your request!')
+
+
+@ask.intent('AMAZON.PauseIntent')
+def pause():
+    logger.info('Pausing current stream: %s' % current_stream)
+    return audio().stop()
+
+
+@ask.intent('AMAZON.ResumeIntent')
+def resume():
+    logger.info('Resuming current stream: %s' % current_stream)
+    return audio().resume()
+
+
+@ask.session_ended
+def session_ended():
+    return "", 200
 
 
 def create_app():
