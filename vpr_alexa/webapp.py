@@ -42,12 +42,12 @@ def play_program(program_name=''):
 
 @ask.on_playback_started()
 def started(offset, token):
-    logger.info('Playback started at %l for token %s: ' % (offset, token))
+    logger.info('Playback started at %d for token %s: ' % (offset, token))
 
 
 @ask.on_playback_stopped()
 def stopped(offset, token):
-    logger.info('Playback stopped at %l for token %s: ' % (offset, token))
+    logger.info('Playback stopped at %d for token %s: ' % (offset, token))
 
 
 @ask.intent('AMAZON.PauseIntent')
@@ -58,16 +58,19 @@ def pause():
 
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
+    logger.info('resuming a stream')
     return audio('Resuming').resume()
 
 
 @ask.intent('AMAZON.StopIntent')
-def cancel_session():
+def stop_session():
+    logger.info('stop requested')
     return statement('Thanks for listening!')
 
 
 @ask.intent('AMAZON.CancelIntent')
 def cancel_session():
+    logger.info('cancel requested')
     return statement('Thanks for listening!')
 
 @ask.session_ended
