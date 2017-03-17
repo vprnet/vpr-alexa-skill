@@ -4,7 +4,8 @@ VPR Programming
 from collections import namedtuple
 import feedparser
 
-Program = namedtuple('Program', ['name', 'title', 'url'])
+Program = namedtuple('Program',
+                     ['name', 'title', 'url', 'small_img', 'large_img'])
 
 
 def _filter_links(links, link_type):
@@ -37,8 +38,12 @@ def latest_vt_edition():
         latest = feed['entries'][0]
         title = latest['title']
         links = list(_filter_links(latest['links'], 'audio/mpeg'))
-
-        return Program(name='Vermont Edition', url=links[0]['href'], title=title)
+        img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
+        return Program(name='Vermont Edition',
+                       url=links[0]['href'],
+                       title=title,
+                       small_img=img_url,
+                       large_img=img_url)
 
 
 def latest_episode(program_name):

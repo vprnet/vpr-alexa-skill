@@ -61,6 +61,12 @@ def test_play_program(mock, client):
            in response['response']['outputSpeech']['text']
     assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
 
+    card = response['response']['card']
+    assert card['title'] == 'Vermont Edition'
+    assert 'This is a pretend Vermont Edition' in card['text']
+    assert 'image' in card
+    assert len(card['image']) == 2
+
 
 def test_request_bad_program(client):
     response = post(client, requests.play_program())

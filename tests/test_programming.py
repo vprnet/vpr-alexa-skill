@@ -14,3 +14,6 @@ def test_latest_vt_edition(mock):
     assert program.name == 'Vermont Edition'
     assert program.title == 'This is a pretend Vermont Edition'
     assert program.url == 'https://cpa.ds.npr.org/vpr/audio/2017/03/vted.mp3'
+    img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
+    assert program.small_img == img_url
+    assert program.large_img == img_url

@@ -35,7 +35,11 @@ def play_program(program_name=''):
 
     if program:
         speech = render_template('play_program', name=program.name, title=program.title)
-        return audio(speech).play(program.url)
+        return audio(speech)\
+            .play(program.url)\
+            .standard_card(title=program.name, text=program.title,
+                           small_image_url=program.small_img,
+                           large_image_url=program.large_img)
     else:
         return statement('Sorry, I did not understand your request!')
 
