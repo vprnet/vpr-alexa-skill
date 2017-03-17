@@ -37,10 +37,10 @@ def play_program(program_name=''):
 
         speech = render_template('play_program', name=program.name,
                                  title=program.title)
-        card_text = program.title + '\n\n' + program.text
+        card_title = program.name + ": " + program.title
         return audio(speech)\
             .play(program.url)\
-            .standard_card(title=program.name, text=card_text,
+            .standard_card(title=card_title, text=program.text,
                            small_image_url=program.small_img,
                            large_image_url=program.large_img)
     else:
