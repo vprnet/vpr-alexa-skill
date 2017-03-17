@@ -64,6 +64,7 @@ def test_play_program(mock, client):
     card = response['response']['card']
     assert card['title'] == 'Vermont Edition'
     assert 'This is a pretend Vermont Edition' in card['text']
+    assert 'This episode is pretty good' in card['text']
     assert 'image' in card
     assert len(card['image']) == 2
 

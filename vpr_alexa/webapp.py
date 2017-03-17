@@ -34,10 +34,13 @@ def play_program(program_name=''):
         program = None
 
     if program:
-        speech = render_template('play_program', name=program.name, title=program.title)
+
+        speech = render_template('play_program', name=program.name,
+                                 title=program.title)
+        card_text = program.title + '\n\n' + program.text
         return audio(speech)\
             .play(program.url)\
-            .standard_card(title=program.name, text=program.title,
+            .standard_card(title=program.name, text=card_text,
                            small_image_url=program.small_img,
                            large_image_url=program.large_img)
     else:
@@ -77,8 +80,10 @@ def cancel_session():
     logger.info('cancel requested')
     return statement('Thanks for listening!')
 
+
 @ask.session_ended
 def session_ended():
+    logger.info('ending session')
     return "", 200
 
 

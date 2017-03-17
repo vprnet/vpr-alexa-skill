@@ -1,11 +1,13 @@
 """
 VPR Programming
+
+Includes functions for creating VPR Programs and getting latest metadata.
 """
 from collections import namedtuple
 import feedparser
 
 Program = namedtuple('Program',
-                     ['name', 'title', 'url', 'small_img', 'large_img'])
+                     ['name', 'title', 'text', 'url', 'small_img', 'large_img'])
 
 
 def _filter_links(links, link_type):
@@ -28,20 +30,26 @@ def _get_feed(url):
     :param url: url to RSS feed to fetch and parse
     :return: new dict of RSS feed results
     """
-    return dict(feedparser.parse('https://podcasts.vpr.net/vermont-edition'))
+    return dict(feedparser.parse(url))
 
 
 def latest_vt_edition():
+    """
+    Get the latest Vermont Edition
+    :return: Program configured with latest Vermont Edition data
+    """
     feed = _get_feed('https://podcasts.vpr.net/vermont-edition')
 
     if feed:
         latest = feed['entries'][0]
         title = latest['title']
+        text = latest['summary']
         links = list(_filter_links(latest['links'], 'audio/mpeg'))
         img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
         return Program(name='Vermont Edition',
                        url=links[0]['href'],
                        title=title,
+                       text=text,
                        small_img=img_url,
                        large_img=img_url)
 
