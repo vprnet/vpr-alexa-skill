@@ -1,2 +1,4 @@
 flask-ask
+feedparser
+pytest
 gunicorn

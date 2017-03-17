@@ -2,8 +2,11 @@
 Tests for VPR's Amazon Alexa Skill
 """
 from vpr_alexa.webapp import create_app
+from tests.fixtures import mock_vted_program
 import tests.requests as requests
-import pytest
+
+from unittest.mock import patch
+from pytest import fixture
 import json
 import os
 
@@ -15,7 +18,7 @@ app.config['ASK_VERIFY_REQUESTS'] = False
 app.config['TESTING'] = True
 
 
-@pytest.fixture(name='client')
+@fixture(name='client')
 def setup_client():
     return app.test_client()
 
@@ -49,10 +52,12 @@ def test_program_list(client):
            in response['response']['outputSpeech']['text']
 
 
-def test_play_program(client):
+@patch('vpr_alexa.programs.latest_vt_edition', return_value=mock_vted_program)
+def test_play_program(mock, client):
     response = post(client, requests.play_program('vermont edition'))
 
-    assert 'Playing Vermont Edition' \
+    assert 'Playing the latest Vermont Edition ' \
+           'This is a pretend Vermont Edition' \
            in response['response']['outputSpeech']['text']
     assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
 

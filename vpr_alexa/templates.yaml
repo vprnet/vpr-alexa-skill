@@ -12,4 +12,4 @@ programs:
   Eye on the Sky
 
 
-play_program: Playing {{ program_name }}
+play_program: Playing the latest {{ name }} {{ title }}

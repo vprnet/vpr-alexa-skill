@@ -34,7 +34,7 @@ def play_program(program_name=''):
         program = None
 
     if program:
-        speech = render_template('play_program', program_name=program.title)
+        speech = render_template('play_program', name=program.name, title=program.title)
         return audio(speech).play(program.url)
     else:
         return statement('Sorry, I did not understand your request!')
