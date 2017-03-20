@@ -9,6 +9,8 @@ import feedparser
 Program = namedtuple('Program',
                      ['name', 'title', 'text', 'url', 'small_img', 'large_img'])
 
+white_list = set(['vermont-edition', 'eye-on-the-sky'])
+
 
 def _filter_links(links, link_type):
     """
@@ -33,25 +35,26 @@ def _get_feed(url):
     return dict(feedparser.parse(url))
 
 
-def latest_vt_edition():
+def latest_podcast_episode(podcast_name):
     """
-    Get the latest Vermont Edition
-    :return: Program configured with latest Vermont Edition data
+    Fetch the latest podcast episode from https://podcasts.vpr.net
+    :param podcast_name: url-style name of the podcast, e.g. "vermont-edition"
+    :return: new Program named tuple with episode metadata
     """
-    feed = _get_feed('https://podcasts.vpr.net/vermont-edition')
-
-    if feed:
-        latest = feed['entries'][0]
-        title = latest['title']
-        text = latest['summary']
-        links = list(_filter_links(latest['links'], 'audio/mpeg'))
-        img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
-        return Program(name='Vermont Edition',
-                       url=links[0]['href'],
-                       title=title,
-                       text=text,
-                       small_img=img_url,
-                       large_img=img_url)
+    if podcast_name in white_list:
+        feed = _get_feed('https://podcasts.vpr.net/' + podcast_name)
+        if feed:
+            latest = feed['entries'][0]
+            title = latest['title']
+            text = latest['summary']
+            links = list(_filter_links(latest['links'], 'audio/mpeg'))
+            img_url = feed['feed']['image']['href']
+            return Program(name=feed['feed']['title'],
+                           url=links[0]['href'],
+                           title=title,
+                           text=text,
+                           small_img=img_url,
+                           large_img=img_url)
 
 
 def latest_episode(program_name):
@@ -61,4 +64,7 @@ def latest_episode(program_name):
     :return: new Program named tuple
     """
     if program_name == 'vermont edition':
-        return latest_vt_edition()
+        return latest_podcast_episode('vermont-edition')
+    elif program_name == 'eye on the sky':
+        return latest_podcast_episode('eye-on-the-sky')
+

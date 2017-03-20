@@ -52,7 +52,7 @@ def test_program_list(client):
            in response['response']['outputSpeech']['text']
 
 
-@patch('vpr_alexa.programs.latest_vt_edition', return_value=mock_vted_program)
+@patch('vpr_alexa.programs.latest_episode', return_value=mock_vted_program)
 def test_play_program(mock, client):
     response = post(client, requests.play_program('vermont edition'))
 
@@ -63,7 +63,6 @@ def test_play_program(mock, client):
 
     card = response['response']['card']
     assert card['title'] == 'Vermont Edition: This is a pretend Vermont Edition'
-    #assert 'This is a pretend Vermont Edition' in card['text']
     assert 'This episode is pretty good' in card['text']
     assert 'image' in card
     assert len(card['image']) == 2
@@ -73,4 +72,3 @@ def test_request_bad_program(client):
     response = post(client, requests.play_program())
 
     assert 'Sorry' in response['response']['outputSpeech']['text']
-
