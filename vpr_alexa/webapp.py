@@ -47,6 +47,11 @@ def play_program(program_name=''):
         return statement('Sorry, I did not understand your request!')
 
 
+@ask.intent('SelectProgram', mapping={'program_name': 'ProgramName'})
+def select_program(program_name):
+    return play_program(program_name)
+
+
 @ask.on_playback_started()
 def started(offset, token):
     logger.info('Playback started at %d ms for token %s: ' % (offset, token))
