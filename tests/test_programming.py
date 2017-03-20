@@ -57,4 +57,4 @@ def test_alexa_slots_resolve_to_programs():
                 program = programs.latest_episode(slot)
                 assert program is not None
                 for token in slot.split(' '):
-                    assert token in program.name.lower()
+                    assert token.lower() in program.name.lower()

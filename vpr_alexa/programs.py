@@ -63,6 +63,11 @@ def latest_episode(program_name):
     :param program_name: a valid program name (see program_list)
     :return: new Program named tuple
     """
+    if program_name:
+        program_name = program_name.lower()
+    else:
+        program_name = ''
+
     if program_name == 'vermont edition':
         return latest_podcast_episode('vermont-edition')
     elif program_name == 'eye on the sky':
