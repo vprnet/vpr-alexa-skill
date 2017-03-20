@@ -1,3 +1,7 @@
+"""
+Tests against the VPR Program logic including fetching Podcasts information.
+"""
+import os
 from unittest.mock import patch
 
 from tests.fixtures import mock_vt_ed, mock_eots_ed
@@ -34,3 +38,23 @@ def test_latest_eye_on_the_sky(mock):
     img_url = 'https://static.feedpress.it/logo/vpr-eye-on-the-sky.jpg'
     assert program.small_img == img_url
     assert program.large_img == img_url
+
+
+def test_alexa_slots_resolve_to_programs():
+    """
+    Load the LIST_OF_PROGRAMS slot definition file and make sure they all can
+    return a Program.
+    """
+    path = os.path.join(
+        os.path.abspath(os.path.join(programs.__file__, '..')),
+        'speech_assets/customSlotTypes/LIST_OF_PROGRAMS')
+
+    with open(path, 'r') as f:
+        for line in f.readlines():
+            slot = line.strip()
+
+            if slot:
+                program = programs.latest_episode(slot)
+                assert program is not None
+                for token in slot.split(' '):
+                    assert token in program.name.lower()

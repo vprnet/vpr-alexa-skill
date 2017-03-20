@@ -1,5 +1,5 @@
 """
-Tests for VPR's Amazon Alexa Skill
+Tests against VPR's Amazon Alexa Skill webapp logic.
 """
 from vpr_alexa.webapp import create_app
 from tests.fixtures import mock_vted_program

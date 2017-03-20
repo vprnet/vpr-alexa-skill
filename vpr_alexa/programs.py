@@ -9,7 +9,7 @@ import feedparser
 Program = namedtuple('Program',
                      ['name', 'title', 'text', 'url', 'small_img', 'large_img'])
 
-white_list = set(['vermont-edition', 'eye-on-the-sky'])
+white_list = {'vermont-edition', 'eye-on-the-sky', 'vpr-news'}
 
 
 def _filter_links(links, link_type):
@@ -67,4 +67,16 @@ def latest_episode(program_name):
         return latest_podcast_episode('vermont-edition')
     elif program_name == 'eye on the sky':
         return latest_podcast_episode('eye-on-the-sky')
+    elif program_name == 'jazz':
+        return Program(name='VPR Jazz', title='VPR Jazz Live Stream',
+                       url='', text='VPR Jazz Live Stream',
+                       small_img='',
+                       large_img='')
+    elif program_name == 'classical':
+        return Program(name='VPR Classical', title='VPR Classical Live Stream',
+                       url='', text='VPR Jazz Live Stream',
+                       small_img='',
+                       large_img='')
+    elif program_name == 'v p r news' or program_name == 'vpr news':
+        return latest_podcast_episode('vpr-news')
 
