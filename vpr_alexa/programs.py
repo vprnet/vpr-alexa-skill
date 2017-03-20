@@ -68,20 +68,22 @@ def latest_episode(program_name):
     else:
         program_name = ''
 
-    if program_name == 'vermont edition':
+    if 'vermont edition' in program_name:
         return latest_podcast_episode('vermont-edition')
-    elif program_name == 'eye on the sky':
+    elif 'on the sky' in program_name:
         return latest_podcast_episode('eye-on-the-sky')
-    elif program_name == 'jazz':
+    elif 'jazz' in program_name:
         return Program(name='VPR Jazz', title='VPR Jazz Live Stream',
-                       url='', text='VPR Jazz Live Stream',
+                       url='https://vprjazz.streamguys1.com/vpr64-mobile.mp3',
+                       text='VPR Jazz Live Stream',
                        small_img='',
                        large_img='')
-    elif program_name == 'classical':
+    elif 'classical' in program_name:
         return Program(name='VPR Classical', title='VPR Classical Live Stream',
-                       url='', text='VPR Jazz Live Stream',
+                       url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
+                       text='VPR Classical Live Stream',
                        small_img='',
                        large_img='')
-    elif program_name == 'v p r news' or program_name == 'vpr news':
+    elif 'news' in program_name:
         return latest_podcast_episode('vpr-news')
 
