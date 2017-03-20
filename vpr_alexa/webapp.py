@@ -28,13 +28,9 @@ def list_programs():
 def play_program(program_name=''):
     logger.info("play program launch (program_name: %s)" % program_name)
 
-    if program_name.lower():
-        program = programs.latest_episode(program_name)
-    else:
-        program = None
+    program = programs.latest_episode(program_name.lower())
 
     if program:
-
         speech = render_template('play_program', name=program.name,
                                  title=program.title)
         card_title = program.name + ": " + program.title

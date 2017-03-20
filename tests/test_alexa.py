@@ -2,7 +2,7 @@
 Tests against VPR's Amazon Alexa Skill webapp logic.
 """
 from vpr_alexa.webapp import create_app
-from tests.fixtures import mock_vted_program
+from tests.fixtures import *
 import tests.requests as requests
 
 from unittest.mock import patch
@@ -54,18 +54,43 @@ def test_program_list(client):
 
 @patch('vpr_alexa.programs.latest_episode', return_value=mock_vted_program)
 def test_play_program(mock, client):
-    response = post(client, requests.play_program('vermont edition'))
 
-    assert 'Playing the latest Vermont Edition ' \
-           'This is a pretend Vermont Edition' \
-           in response['response']['outputSpeech']['text']
-    assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
+    def check(utterance):
+        response = post(client, requests.play_program(utterance))
+        assert 'Playing the latest Vermont Edition ' \
+               'This is a pretend Vermont Edition' \
+               in response['response']['outputSpeech']['text']
+        assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
 
-    card = response['response']['card']
-    assert card['title'] == 'Vermont Edition: This is a pretend Vermont Edition'
-    assert 'This episode is pretty good' in card['text']
-    assert 'image' in card
-    assert len(card['image']) == 2
+        card = response['response']['card']
+        assert card['title'] == 'Vermont Edition: This is a pretend Vermont Edition'
+        assert 'This episode is pretty good' in card['text']
+        assert 'image' in card
+        assert len(card['image']) == 2
+
+    for utterance in ['vermont edition', 'vt edition', 'v t edition']:
+        print('testing utterance: ' + utterance)
+        check(utterance)
+
+
+@patch('vpr_alexa.programs.latest_episode', return_value=mock_eots_program)
+def test_eots(mock, client):
+
+    def check(utterance):
+        response = post(client, requests.play_program(utterance))
+        assert 'Playing the latest Eye on the Sky ' \
+               'This is a pretend Eye on the Sky' \
+               in response['response']['outputSpeech']['text']
+        assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
+
+        card = response['response']['card']
+        assert card['title'] == 'Eye on the Sky: This is a pretend Eye on the Sky'
+        assert 'This episode is pretty good' in card['text']
+        assert 'image' in card
+        assert len(card['image']) == 2
+
+    for utterance in ['I on the sky', 'eye on the sky', 'ion the sky']:
+        check(utterance)
 
 
 def test_request_bad_program(client):

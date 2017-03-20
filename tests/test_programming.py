@@ -30,14 +30,18 @@ def test_latest_eye_on_the_sky(mock):
     Make sure we can fetch the latest episode from the podcast feed and get
     its metadata
     """
-    program = programs.latest_episode('eye on the sky')
-    assert program.name == 'Eye on the Sky'
-    assert program.title == 'This is a pretend Eye on the Sky'
-    assert program.text == 'This episode is pretty good.'
-    assert program.url == 'https://cpa.ds.npr.org/vpr/audio/2017/03/eots.mp3'
-    img_url = 'https://static.feedpress.it/logo/vpr-eye-on-the-sky.jpg'
-    assert program.small_img == img_url
-    assert program.large_img == img_url
+    def check(program):
+        assert program.name == 'Eye on the Sky'
+        assert program.title == 'This is a pretend Eye on the Sky'
+        assert program.text == 'This episode is pretty good.'
+        assert program.url == 'https://cpa.ds.npr.org/vpr/audio/2017/03/eots.mp3'
+        img_url = 'https://static.feedpress.it/logo/vpr-eye-on-the-sky.jpg'
+        assert program.small_img == img_url
+        assert program.large_img == img_url
+
+    for utterance in ['eye on the sky', 'i on the sky', 'ion on the sky']:
+        check(programs.latest_episode(utterance))
+
 
 
 def test_alexa_slots_resolve_to_programs():
