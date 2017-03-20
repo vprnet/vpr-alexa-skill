@@ -24,7 +24,7 @@ def list_programs():
     return question(render_template('list_programs'))
 
 
-@ask.intent('PlayProgram')
+@ask.intent('PlayProgram', mapping={'program_name': 'ProgramName'})
 def play_program(program_name=''):
     logger.info("play program launch (program_name: %s)" % program_name)
 

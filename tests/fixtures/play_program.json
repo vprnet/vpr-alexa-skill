@@ -39,7 +39,7 @@
       "name": "PlayProgram",
       "slots": {
         "string": {
-          "name": "program_name",
+          "name": "ProgramName",
           "value": "{{VALUE}}"
         }
       }
