@@ -14,14 +14,20 @@ def test_latest_vt_edition(mock):
     Make sure we can fetch the latest episode from the podcast feed and get
     its metadata
     """
-    program = programs.latest_episode('vermont edition')
-    assert program.name == 'Vermont Edition'
-    assert program.title == 'This is a pretend Vermont Edition'
-    assert program.text == 'This episode is pretty good.'
-    assert program.url == 'https://cpa.ds.npr.org/vpr/audio/2017/03/vted.mp3'
-    img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
-    assert program.small_img == img_url
-    assert program.large_img == img_url
+    def check(utterance):
+        program = programs.latest_episode(utterance)
+        assert program.name == 'Vermont Edition'
+        assert program.title == 'This is a pretend Vermont Edition'
+        assert program.text == 'This episode is pretty good.'
+        assert program.url == 'https://cpa.ds.npr.org/vpr/audio/2017/03/vted.mp3'
+        img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
+        assert program.small_img == img_url
+        assert program.large_img == img_url
+
+    for utterance in ['vermont edition', 'vt edition', 'v t edition',
+                      'vermont addition']:
+        check(utterance)
+
 
 
 @patch('vpr_alexa.programs._get_feed', return_value=mock_eots_ed)
@@ -30,7 +36,8 @@ def test_latest_eye_on_the_sky(mock):
     Make sure we can fetch the latest episode from the podcast feed and get
     its metadata
     """
-    def check(program):
+    def check(utterance):
+        program = programs.latest_episode(utterance)
         assert program.name == 'Eye on the Sky'
         assert program.title == 'This is a pretend Eye on the Sky'
         assert program.text == 'This episode is pretty good.'
@@ -39,8 +46,9 @@ def test_latest_eye_on_the_sky(mock):
         assert program.small_img == img_url
         assert program.large_img == img_url
 
-    for utterance in ['eye on the sky', 'i on the sky', 'ion on the sky']:
-        check(programs.latest_episode(utterance))
+    for utterance in ['eye on the sky', 'i on the sky',
+                      'ion on the sky', 'i am the sky']:
+        check(utterance)
 
 
 

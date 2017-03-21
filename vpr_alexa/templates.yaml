@@ -3,13 +3,16 @@ welcome: Welcome to Vermont Public Radio! {% include 'welcome_reprompt' %}
 welcome_reprompt: You can say Play the latest Vermont Edition or List Programs
 
 list_programs:
-  You can listen to the following programs
+  You can listen to the following programs...
   {% include 'programs' %}
   Which would you like to listen to? You can say the name of the program or cancel.
 
 programs:
-  Vermont Edition
-  Eye on the Sky
+  Vermont Edition,
+  Eye on the Sky,
+  VPR News,
+  VPR Jazz,
+  VPR Classical.
 
 
-play_program: Playing the latest {{ name }} {{ title }}
+play_program: Playing the latest {{ name }} titled {{ title }}

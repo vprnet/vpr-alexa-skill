@@ -68,9 +68,9 @@ def latest_episode(program_name):
     else:
         program_name = ''
 
-    if 'vermont edition' in program_name:
+    if 'edition' in program_name or 'addition' in program_name:
         return latest_podcast_episode('vermont-edition')
-    elif 'on the sky' in program_name:
+    elif 'the sky' in program_name:
         return latest_podcast_episode('eye-on-the-sky')
     elif 'jazz' in program_name:
         return Program(name='VPR Jazz', title='VPR Jazz Live Stream',
