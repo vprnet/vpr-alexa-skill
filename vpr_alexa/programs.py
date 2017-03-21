@@ -76,14 +76,14 @@ def latest_episode(program_name):
         return Program(name='VPR Jazz', title='VPR Jazz Live Stream',
                        url='https://vprjazz.streamguys1.com/vpr64-mobile.mp3',
                        text='VPR Jazz Live Stream',
-                       small_img='',
-                       large_img='')
+                       small_img='https://placehold.it/300?text=Jazz',
+                       large_img='https://placehold.it/600?text=Jazz')
     elif 'classical' in program_name:
         return Program(name='VPR Classical', title='VPR Classical Live Stream',
                        url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
                        text='VPR Classical Live Stream',
-                       small_img='',
-                       large_img='')
+                       small_img='https://placehold.it/300?text=Classical',
+                       large_img='https://placehold.it/600?text=Classical')
     elif 'news' in program_name:
         return latest_podcast_episode('vpr-news')
 
