@@ -9,7 +9,7 @@ import feedparser
 Program = namedtuple('Program',
                      ['name', 'title', 'text', 'url', 'small_img', 'large_img'])
 
-white_list = {'vermont-edition', 'eye-on-the-sky', 'vpr-news'}
+podcasts = {'vermont-edition', 'eye-on-the-sky', 'vpr-news'}
 
 
 def _filter_links(links, link_type):
@@ -41,7 +41,7 @@ def latest_podcast_episode(podcast_name):
     :param podcast_name: url-style name of the podcast, e.g. "vermont-edition"
     :return: new Program named tuple with episode metadata
     """
-    if podcast_name in white_list:
+    if podcast_name in podcasts:
         feed = _get_feed('https://podcasts.vpr.net/' + podcast_name)
         if feed:
             latest = feed['entries'][0]
@@ -88,7 +88,7 @@ def get_program(program_name):
         return latest_podcast_episode('vpr-news')
     else:
         return Program(name='Vermont Public Radio', title='VPR Live Stream',
-                       url='https://vpr.streamguys1.com:8443/vpr96.mp3',
+                       url='https://vpr.streamguys1.com/vpr96.mp3',
                        text="Vermon's NPR News Source",
                        small_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png',
                        large_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png')
