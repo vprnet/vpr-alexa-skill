@@ -70,7 +70,7 @@ def get_program(program_name):
 
     if 'edition' in program_name or 'addition' in program_name:
         return latest_podcast_episode('vermont-edition')
-    elif 'the sky' in program_name:
+    elif 'sky' in program_name:
         return latest_podcast_episode('eye-on-the-sky')
     elif 'jazz' in program_name:
         return Program(name='VPR Jazz', title='VPR Jazz Live Stream',
@@ -86,4 +86,10 @@ def get_program(program_name):
                        large_img='https://placehold.it/600?text=Classical')
     elif 'news' in program_name:
         return latest_podcast_episode('vpr-news')
+    else:
+        return Program(name='Vermont Public Radio', title='VPR Live Stream',
+                       url='https://vpr.streamguys1.com:8443/vpr96.mp3',
+                       text="Vermon's NPR News Source",
+                       small_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png',
+                       large_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png')
 

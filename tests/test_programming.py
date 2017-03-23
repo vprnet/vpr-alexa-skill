@@ -56,6 +56,9 @@ def test_alexa_slots_resolve_to_programs():
     """
     Load the LIST_OF_PROGRAMS slot definition file and make sure they all can
     return a Program.
+
+    This does a live hit to the internet, too, and will sanity check VPR's
+    current podcast/rss feeds. (e.g. check https)
     """
     path = os.path.join(
         os.path.abspath(os.path.join(programs.__file__, '..')),
@@ -70,3 +73,6 @@ def test_alexa_slots_resolve_to_programs():
                 assert program is not None
                 for token in slot.split(' '):
                     assert token.lower() in program.name.lower()
+                #assert program.url.startswith('https')
+                #assert program.large_img.startswith('https')
+                #assert program.small_img.startswith('https')

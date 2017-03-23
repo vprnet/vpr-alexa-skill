@@ -69,7 +69,7 @@ def test_program_list(client):
            in response['response']['outputSpeech']['text']
 
 
-@patch('vpr_alexa.programs.latest_episode', return_value=mock_vted_program)
+@patch('vpr_alexa.programs.get_program', return_value=mock_vted_program)
 def test_play_program(mock, client):
     """
     Can we play a VT Edition and get the resulting Card?
@@ -91,7 +91,7 @@ def test_play_program(mock, client):
     assert len(card['image']) == 2
 
 
-@patch('vpr_alexa.programs.latest_episode', return_value=mock_eots_program)
+@patch('vpr_alexa.programs.get_program', return_value=mock_eots_program)
 def test_eots(mock, client):
     """
     Can we play Eye on the Sky and get the resulting card?
@@ -112,9 +112,7 @@ def test_eots(mock, client):
     assert len(card['image']) == 2
 
 
-
-
 def test_request_bad_program(client):
     response = post(client, requests.play_program())
 
-    assert 'Sorry' in response['response']['outputSpeech']['text']
+    assert 'VPR Live Stream' in response['response']['outputSpeech']['text']
