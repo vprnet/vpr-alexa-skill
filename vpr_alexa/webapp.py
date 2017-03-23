@@ -45,7 +45,7 @@ def play_program(program_name=''):
     logger.info("play program launch (program_name: %s)" % program_name)
 
     try:
-        program = programs.latest_episode(program_name.lower())
+        program = programs.get_program(program_name.lower())
 
         if program:
             speech = render_template('play_program', name=program.name,

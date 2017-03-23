@@ -15,7 +15,7 @@ def test_latest_vt_edition(mock):
     its metadata
     """
     def check(utterance):
-        program = programs.latest_episode(utterance)
+        program = programs.get_program(utterance)
         assert program.name == 'Vermont Edition'
         assert program.title == 'This is a pretend Vermont Edition'
         assert program.text == 'This episode is pretty good.'
@@ -37,7 +37,7 @@ def test_latest_eye_on_the_sky(mock):
     its metadata
     """
     def check(utterance):
-        program = programs.latest_episode(utterance)
+        program = programs.get_program(utterance)
         assert program.name == 'Eye on the Sky'
         assert program.title == 'This is a pretend Eye on the Sky'
         assert program.text == 'This episode is pretty good.'
@@ -66,7 +66,7 @@ def test_alexa_slots_resolve_to_programs():
             slot = line.strip()
 
             if slot:
-                program = programs.latest_episode(slot)
+                program = programs.get_program(slot)
                 assert program is not None
                 for token in slot.split(' '):
                     assert token.lower() in program.name.lower()

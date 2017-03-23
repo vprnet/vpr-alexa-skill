@@ -57,7 +57,7 @@ def latest_podcast_episode(podcast_name):
                            large_img=img_url)
 
 
-def latest_episode(program_name):
+def get_program(program_name):
     """
     Get the latest episode for a given VPR program by name.
     :param program_name: a valid program name (see program_list)
