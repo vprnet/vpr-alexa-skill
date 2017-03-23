@@ -89,7 +89,7 @@ def get_program(program_name):
     else:
         return Program(name='Vermont Public Radio', title='VPR Live Stream',
                        url='https://vpr.streamguys1.com/vpr96.mp3',
-                       text="Vermon's NPR News Source",
+                       text="Vermont's NPR News Source",
                        small_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png',
                        large_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png')
 
