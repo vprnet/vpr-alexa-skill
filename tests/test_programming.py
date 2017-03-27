@@ -23,6 +23,7 @@ def test_latest_vt_edition(mock):
         img_url = 'https://static.feedpress.it/logo/vpr-vermont-edition.jpg'
         assert program.small_img == img_url
         assert program.large_img == img_url
+        assert program.is_podcast
 
     for utterance in ['vermont edition', 'vt edition', 'v t edition',
                       'vermont addition']:
@@ -45,11 +46,11 @@ def test_latest_eye_on_the_sky(mock):
         img_url = 'https://static.feedpress.it/logo/vpr-eye-on-the-sky.jpg'
         assert program.small_img == img_url
         assert program.large_img == img_url
+        assert program.is_podcast
 
     for utterance in ['eye on the sky', 'i on the sky',
                       'ion on the sky', 'i am the sky']:
         check(utterance)
-
 
 
 def test_alexa_slots_resolve_to_programs():
@@ -73,6 +74,6 @@ def test_alexa_slots_resolve_to_programs():
                 assert program is not None
                 for token in slot.split(' '):
                     assert token.lower() in program.name.lower()
-                #assert program.url.startswith('https')
-                #assert program.large_img.startswith('https')
-                #assert program.small_img.startswith('https')
+                assert program.url.startswith('https')
+                assert program.large_img.startswith('https')
+                assert program.small_img.startswith('https')

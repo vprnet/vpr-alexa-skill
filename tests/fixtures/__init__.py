@@ -49,7 +49,8 @@ mock_vted_program = \
             text='This episode is pretty good.',
             url='https://cpa.ds.npr.org/vpr/audio/2017/03/vted.mp3',
             small_img='https://static.feedpress.it/logo/vpr-vermont-edition.jpg',
-            large_img='https://static.feedpress.it/logo/vpr-vermont-edition.jpg')
+            large_img='https://static.feedpress.it/logo/vpr-vermont-edition.jpg',
+            is_podcast=True)
 
 
 mock_eots_program = \
@@ -58,4 +59,5 @@ mock_eots_program = \
             text='This episode is pretty good.',
             url='https://cpa.ds.npr.org/vpr/audio/2017/03/eots.mp3',
             small_img='https://static.feedpress.it/logo/eots.jpg',
-            large_img='https://static.feedpress.it/logo/eots.jpg')
+            large_img='https://static.feedpress.it/logo/eots.jpg',
+            is_podcast=True)

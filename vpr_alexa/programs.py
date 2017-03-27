@@ -7,9 +7,32 @@ from collections import namedtuple
 import feedparser
 
 Program = namedtuple('Program',
-                     ['name', 'title', 'text', 'url', 'small_img', 'large_img'])
+                     ['name', 'title', 'text', 'url',
+                      'small_img', 'large_img', 'is_podcast'])
 
 podcasts = {'vermont-edition', 'eye-on-the-sky', 'vpr-news'}
+
+# List of Streaming Programs with metadata.
+radio = Program(name='Vermont Public Radio', title='VPR Live Stream',
+                url='https://vpr.streamguys1.com/vpr96.mp3',
+                text="Vermont's NPR News Source",
+                small_img='https://mediad.publicbroadcasting.net/p/vpr/files/live-stream-logo.png',
+                large_img='https://mediad.publicbroadcasting.net/p/vpr/files/live-stream-logo.png',
+                is_podcast=False)
+
+jazz = Program(name='VPR Jazz', title='VPR Jazz Live Stream',
+               url='https://vprjazz.streamguys1.com/vpr64-mobile.mp3',
+               text='VPR Jazz Live Stream',
+               small_img='https://mediad.publicbroadcasting.net/p/vpr/files/jazz-logo.png',
+               large_img='https://mediad.publicbroadcasting.net/p/vpr/files/jazz-logo.png',
+               is_podcast=False)
+
+classical = Program(name='VPR Classical', title='VPR Classical Live Stream',
+                    url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
+                    text='VPR Classical Live Stream',
+                    small_img='https://mediad.publicbroadcasting.net/p/vpr/files/classical-logo.png',
+                    large_img='https://mediad.publicbroadcasting.net/p/vpr/files/classical-logo.png',
+                    is_podcast=False)
 
 
 def _filter_links(links, link_type):
@@ -54,7 +77,8 @@ def latest_podcast_episode(podcast_name):
                            title=title,
                            text=text,
                            small_img=img_url,
-                           large_img=img_url)
+                           large_img=img_url,
+                           is_podcast=True)
 
 
 def get_program(program_name):
@@ -71,25 +95,17 @@ def get_program(program_name):
     if 'edition' in program_name or 'addition' in program_name:
         return latest_podcast_episode('vermont-edition')
     elif 'sky' in program_name:
-        return latest_podcast_episode('eye-on-the-sky')
+        eots = latest_podcast_episode('eye-on-the-sky')
+        if str(eots.url).startswith('http://'):
+            # named tuples are immutable, but have a built in _replace method
+            # that lets you create a new instance with modified data.
+            eots = eots._replace(url=str(eots.url).replace('http:', 'https:'))
+        return eots
     elif 'jazz' in program_name:
-        return Program(name='VPR Jazz', title='VPR Jazz Live Stream',
-                       url='https://vprjazz.streamguys1.com/vpr64-mobile.mp3',
-                       text='VPR Jazz Live Stream',
-                       small_img='https://placehold.it/300?text=Jazz',
-                       large_img='https://placehold.it/600?text=Jazz')
+        return jazz
     elif 'classical' in program_name:
-        return Program(name='VPR Classical', title='VPR Classical Live Stream',
-                       url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
-                       text='VPR Classical Live Stream',
-                       small_img='https://placehold.it/300?text=Classical',
-                       large_img='https://placehold.it/600?text=Classical')
+        return classical
     elif 'news' in program_name:
         return latest_podcast_episode('vpr-news')
     else:
-        return Program(name='Vermont Public Radio', title='VPR Live Stream',
-                       url='https://vpr.streamguys1.com/vpr96.mp3',
-                       text="Vermont's NPR News Source",
-                       small_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png',
-                       large_img='https://pbs.twimg.com/profile_images/519508312606248960/bYpREhMx.png')
-
+        return radio
