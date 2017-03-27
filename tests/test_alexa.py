@@ -84,7 +84,7 @@ def test_play_program(mock, client):
     assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
 
     card = response['response']['card']
-    assert card['title'] == 'Vermont Edition: This is a pretend Vermont Edition'
+    assert card['title'] == 'This is a pretend Vermont Edition'
     assert 'This episode is pretty good' in card['text']
     assert 'image' in card
     assert len(card['image']) == 2
@@ -104,7 +104,7 @@ def test_eots(mock, client):
     assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
 
     card = response['response']['card']
-    assert card['title'] == 'Eye on the Sky: This is a pretend Eye on the Sky'
+    assert card['title'] == 'This is a pretend Eye on the Sky'
     assert 'This episode is pretty good' in card['text']
     assert 'image' in card
     assert len(card['image']) == 2

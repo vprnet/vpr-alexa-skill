@@ -48,16 +48,14 @@ def play_program(program_name=''):
         program = programs.get_program(program_name.lower())
 
         if program.is_podcast:
-            card_title = program.name + ": " + program.title
             speech = render_template('play_podcast', name=program.name,
                                      title=program.title)
         else:
-            card_title = program.title
             speech = render_template('play_livestream', name=program.name)
 
         return audio(speech) \
             .play(program.url) \
-            .standard_card(title=card_title, text=program.text,
+            .standard_card(title=program.title, text=program.text,
                            small_image_url=program.small_img,
                            large_image_url=program.large_img)
 
