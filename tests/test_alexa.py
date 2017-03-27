@@ -62,7 +62,7 @@ def test_program_list(client):
     response = post(client, requests.list_programs())
 
     assert response['response']['shouldEndSession'] is False
-    assert 'You can listen to the following programs' \
+    assert 'You can listen to the following' \
            in response['response']['outputSpeech']['text']
     assert 'Which would you like to listen to? ' \
            'You can say the name of the program or cancel.'\

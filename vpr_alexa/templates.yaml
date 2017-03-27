@@ -3,7 +3,7 @@ welcome: Welcome to Vermont Public Radio! {% include 'welcome_reprompt' %}
 welcome_reprompt: You can say Play the latest Vermont Edition or List Programs
 
 list_programs:
-  You can listen to the following programs and live streams...
+  You can listen to the following VPR programming...
   {% include 'programs' %}
   Which would you like to listen to? You can say the name of the program or cancel.
 
