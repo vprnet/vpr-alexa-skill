@@ -47,22 +47,26 @@ def play_program(program_name=''):
     try:
         program = programs.get_program(program_name.lower())
 
-        if program:
-            speech = render_template('play_program', name=program.name,
-                                     title=program.title)
+        if program.is_podcast:
             card_title = program.name + ": " + program.title
-            return audio(speech)\
-                .play(program.url)\
-                .standard_card(title=card_title, text=program.text,
-                               small_image_url=program.small_img,
-                               large_image_url=program.large_img)
+            speech = render_template('play_podcast', name=program.name,
+                                     title=program.title)
         else:
-            return statement('Sorry, I did not understand your request!')
+            card_title = program.title
+            speech = render_template('play_livestream', name=program.name)
+
+        return audio(speech) \
+            .play(program.url) \
+            .standard_card(title=card_title, text=program.text,
+                           small_image_url=program.small_img,
+                           large_image_url=program.large_img)
 
     except Exception as e:
         logger.error('Failed to launch program for program_name: %s'
                      % program_name)
         logger.info('Exception: %s' % e)
+
+    return statement('Sorry, I did not understand your request!')
 
 
 @ask.intent('SelectProgram', mapping={'program_name': 'ProgramName'})

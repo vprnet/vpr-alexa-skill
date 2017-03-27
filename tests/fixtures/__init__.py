@@ -57,7 +57,18 @@ mock_eots_program = \
     Program(name='Eye on the Sky',
             title='This is a pretend Eye on the Sky',
             text='This episode is pretty good.',
-            url='https://cpa.ds.npr.org/vpr/audio/2017/03/eots.mp3',
+            # eye on the sky currently has a non-https url listed in the feed
+            url='http://cpa.ds.npr.org/vpr/audio/2017/03/eots.mp3',
             small_img='https://static.feedpress.it/logo/eots.jpg',
             large_img='https://static.feedpress.it/logo/eots.jpg',
             is_podcast=True)
+
+
+mock_jazz_program = \
+    Program(name='VPR Jazz',
+            title='VPR Jazz Live Stream',
+            text='Jazz24 features the greatest jazz artists',
+            url='https://jazzstream.mp3',
+            small_img='https://jazzimage.png',
+            large_img='https://jazzimage.png',
+            is_podcast=False)

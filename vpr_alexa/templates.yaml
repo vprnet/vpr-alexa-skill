@@ -16,4 +16,6 @@ programs:
   VPR Classical.
 
 
-play_program: Playing the latest {{ name }} titled {{ title }}
+play_podcast: Playing the latest {{ name }} titled {{ title }}
+
+play_livestream: Playing the live stream for {{ name }}

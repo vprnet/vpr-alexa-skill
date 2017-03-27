@@ -73,9 +73,8 @@ def test_program_list(client):
 def test_play_program(mock, client):
     """
     Can we play a VT Edition and get the resulting Card?
-    :param mock:
-    :param client:
-    :return:
+    :param mock: mock VT Edition Program
+    :param client: Flask test client
     """
 
     response = post(client, requests.play_program("vermont edition"))
@@ -95,9 +94,8 @@ def test_play_program(mock, client):
 def test_eots(mock, client):
     """
     Can we play Eye on the Sky and get the resulting card?
-    :param mock:
-    :param client:
-    :return:
+    :param mock: mock Eye on the Sky Program
+    :param client: Flask test client
     """
     response = post(client, requests.play_program("eye on the sky"))
     assert 'Playing the latest Eye on the Sky titled ' \
@@ -112,7 +110,27 @@ def test_eots(mock, client):
     assert len(card['image']) == 2
 
 
+@patch('vpr_alexa.programs.get_program', return_value=mock_jazz_program)
+def test_stream(mock, client):
+    """
+    When we play a live stream do we get appropriate verbiage?
+    :param mock:
+    :param client:
+    :return:
+    """
+    response = post(client, requests.play_program('jazz'))
+    assert 'Playing the live stream for VPR Jazz' \
+           in response['response']['outputSpeech']['text']
+    assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
+
+    card = response['response']['card']
+    assert card['title'] == 'VPR Jazz Live Stream'
+    assert "Jazz24 features the greatest jazz artists" in card['text']
+    assert 'image' in card
+    assert len(card['image']) == 2
+
+
 def test_request_bad_program(client):
     response = post(client, requests.play_program())
 
-    assert 'VPR Live Stream' in response['response']['outputSpeech']['text']
+    assert 'Vermont Public Radio' in response['response']['outputSpeech']['text']
