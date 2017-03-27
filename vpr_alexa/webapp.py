@@ -1,9 +1,9 @@
 """
-Flask-Ask based web app
+Vermont Public Radio Alexa Skill
 """
 import os
 from flask import Flask, Blueprint, render_template
-from flask_ask import Ask, question, statement, audio, request
+from flask_ask import Ask, question, statement, audio
 from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
@@ -13,6 +13,11 @@ ask = Ask(route=ASK_ROUTE)
 
 @ask.launch
 def welcome():
+    """
+    General launch intent briefing the user on what the skill provides.
+    :return: question for specific intent to either get program list or play a
+    particular program
+    """
     logger.info("welcome launch")
     return question(render_template('welcome'))\
         .reprompt(render_template('welcome_reprompt'))
@@ -20,57 +25,93 @@ def welcome():
 
 @ask.intent('ListPrograms')
 def list_programs():
+    """
+    Program listing menu. Should tell the users the available programming and
+    prompt for a selection.
+    :return: question of which program to play
+    """
     logger.info("list programs launch")
     return question(render_template('list_programs'))
 
 
-@ask.intent('PlayProgram')
+@ask.intent('PlayProgram', mapping={'program_name': 'ProgramName'})
 def play_program(program_name=''):
+    """
+    Our key intent for playing audio.
+    :param program_name: ProgramName slot value from LIST_OF_PROGRAMS or close
+    enough values.
+    :return: audio directive on successful program selection, statement on error
+    """
     logger.info("play program launch (program_name: %s)" % program_name)
 
-    if program_name.lower() == 'vermont edition':
-        program = programs.latest_vt_edition()
-    else:
-        program = None
+    try:
+        program = programs.get_program(program_name.lower())
 
-    if program:
+        if program:
+            speech = render_template('play_program', name=program.name,
+                                     title=program.title)
+            card_title = program.name + ": " + program.title
+            return audio(speech)\
+                .play(program.url)\
+                .standard_card(title=card_title, text=program.text,
+                               small_image_url=program.small_img,
+                               large_image_url=program.large_img)
+        else:
+            return statement('Sorry, I did not understand your request!')
 
-        speech = render_template('play_program', name=program.name,
-                                 title=program.title)
-        card_title = program.name + ": " + program.title
-        return audio(speech)\
-            .play(program.url)\
-            .standard_card(title=card_title, text=program.text,
-                           small_image_url=program.small_img,
-                           large_image_url=program.large_img)
-    else:
-        return statement('Sorry, I did not understand your request!')
+    except Exception as e:
+        logger.error('Failed to launch program for program_name: %s'
+                     % program_name)
+        logger.info('Exception: %s' % e)
+
+
+@ask.intent('SelectProgram', mapping={'program_name': 'ProgramName'})
+def select_program(program_name):
+    return play_program(program_name)
 
 
 @ask.on_playback_started()
 def started(offset, token):
-    logger.info('Playback started at %d ms for token %s: ' % (offset, token))
+    """
+    The skill gets notified when the stream's about to start. This allows for
+    any state handling, but also for now is just helpful for debugging.
+    """
+    logger.info('Playback started at %d ms for token %s' % (offset, token))
 
 
 @ask.on_playback_stopped()
 def stopped(offset, token):
-    logger.info('Playback stopped at %d ms for token %s: ' % (offset, token))
+    """
+    The skill gets notified when the stream is stopped. This allows for
+    any state handling, but also for now is just helpful for debugging.
+    """
+    logger.info('Playback stopped at %d ms for token %s' % (offset, token))
 
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
+    """
+    Suspends playback of Audio. Should be resume-able via AMAZON.ResumeIntent
+    """
     logger.info('pausing a stream')
     return audio('Pausing').stop()
 
 
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
+    """
+    Resume a paused audio stream.
+    """
     logger.info('resuming a stream')
     return audio('Resuming').resume()
 
 
 @ask.intent('AMAZON.StopIntent')
 def stop_session():
+    """
+    This doesn't seem to be a thing or at least not what you'd expect. Usually
+    AMAZON.PauseIntent is the actual stopping of audio.
+    """
     logger.info('stop requested')
     return statement('Thanks for listening!')
 
