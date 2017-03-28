@@ -2,7 +2,7 @@
 Tests against the VPR Program logic including fetching Podcasts information.
 """
 import os
-from unittest.mock import patch
+from mock import patch
 
 from tests.fixtures import mock_vt_ed, mock_eots_ed
 from vpr_alexa import programs

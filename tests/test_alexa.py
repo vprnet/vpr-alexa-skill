@@ -5,7 +5,7 @@ from vpr_alexa.webapp import create_app
 from tests.fixtures import *
 import tests.requests as requests
 
-from unittest.mock import patch
+from mock import patch
 from pytest import fixture
 import json
 import os
