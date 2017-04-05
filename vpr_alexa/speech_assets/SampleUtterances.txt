@@ -1,3 +1,10 @@
 ListPrograms list programs
-PlayProgram play {program_name}
-PlayProgram listen to {program_name}
+PlayProgram play {ProgramName}
+PlayProgram play VPR {ProgramName}
+PlayProgram play the latest {ProgramName}
+PlayProgram stream {ProgramName}
+PlayProgram listen to {ProgramName}
+PlayProgram listen to VPR {ProgramName}
+PlayProgram listen to the latest {ProgramName}
+SelectProgram {ProgramName}
+SelectProgram select {ProgramName}
