@@ -4,19 +4,25 @@
       "intent": "ListPrograms"
     },
     {
-      "intent": "PlayProgram",
       "slots": [
         {
-          "name": "program_name",
+          "name": "ProgramName",
           "type": "LIST_OF_PROGRAMS"
         }
-      ]
+      ],
+      "intent": "PlayProgram"
+    },
+    {
+      "slots": [
+        {
+          "name": "ProgramName",
+          "type": "LIST_OF_PROGRAMS"
+        }
+      ],
+      "intent": "SelectProgram"
     },
     {
       "intent": "AMAZON.PauseIntent"
-    },
-    {
-      "intent": "PlaylistDemoIntent"
     },
     {
       "intent": "AMAZON.StopIntent"
