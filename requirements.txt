@@ -2,3 +2,6 @@ flask-ask
 feedparser
 pytest
 gunicorn
+mock
+six
+tox

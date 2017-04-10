@@ -3,13 +3,16 @@ Test fixtures for simulating JSON input from Alexa
 """
 import os
 import io
+import six
+
 requests_dir = os.path.realpath(os.path.join(os.path.realpath(__file__),
                                              '../fixtures/'))
 
 
 def _read_request_json(filename):
     with open(requests_dir + '/' + filename, 'r') as f:
-        return io.StringIO(f.read())
+        body = f.read()
+        return io.StringIO(six.u(body))
 
 
 def launch():
