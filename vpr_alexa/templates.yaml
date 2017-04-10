@@ -22,7 +22,7 @@ play_livestream: Playing the live stream for {{ name }}
 
 help:
   I can help you listen to your favorite Vermont Public Radio programs as well as live streams!
-  You can as for a specific program or stream by name by saying "play" or "listen to" and the name of the program or stream.
+  You can as for a specific program, or stream, by name by saying "play" or "listen to" and the name of the program or stream.
   If you'd like to hear the list of programs and streams I can play for you, simply say "list programs."
   Or, you can always say cancel to abort.
   Now, which would you like?

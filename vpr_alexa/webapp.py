@@ -120,7 +120,7 @@ def stop_session():
     AMAZON.PauseIntent is the actual stopping of audio.
     """
     logger.info('stop requested')
-    return statement('Thanks for listening!')
+    # return statement('Thanks for listening!')
 
 
 @ask.intent('AMAZON.CancelIntent')

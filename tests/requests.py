@@ -31,3 +31,7 @@ def cancel():
 
 def help():
     return _read_request_json('help.json')
+
+
+def say_nothing():
+    return _read_request_json('say_nothing.json')

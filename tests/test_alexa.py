@@ -157,3 +157,16 @@ def test_help_intent(client):
     assert response['response']['shouldEndSession'] is False
     assert 'I can help you listen to your favorite Vermont Public Radio' in \
            response['response']['outputSpeech']['text']
+
+
+def test_saying_nothing_silently_ends_session(client):
+    """
+    A non-response (dead air) should just end the session. Amazon dictates that
+    the response to a SessionEnd request should be empty (no actual json)
+    :param client:
+    :return:
+    """
+    response = client.post('/ask', data=requests.say_nothing())
+    assert response.status_code == 200
+    assert response.content_length == 0
+
