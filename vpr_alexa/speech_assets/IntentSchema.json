@@ -4,6 +4,12 @@
       "intent": "ListPrograms"
     },
     {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
       "slots": [
         {
           "name": "ProgramName",
