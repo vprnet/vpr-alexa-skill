@@ -72,6 +72,11 @@ def select_program(program_name):
     return play_program(program_name)
 
 
+@ask.intent('AMAZON.HelpIntent')
+def help():
+    return question(render_template('help'))
+
+
 @ask.on_playback_started()
 def started(offset, token):
     """
@@ -115,19 +120,19 @@ def stop_session():
     AMAZON.PauseIntent is the actual stopping of audio.
     """
     logger.info('stop requested')
-    return statement('Thanks for listening!')
+    # return statement('Thanks for listening!')
 
 
 @ask.intent('AMAZON.CancelIntent')
 def cancel_session():
     logger.info('cancel requested')
-    return statement('Thanks for listening!')
+    return statement('')
 
 
 @ask.session_ended
 def session_ended():
     logger.info('ending session')
-    return "", 200
+    return "{}", 200
 
 
 def create_app():
