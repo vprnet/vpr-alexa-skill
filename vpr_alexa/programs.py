@@ -17,22 +17,22 @@ podcasts = {'vermont-edition', 'eye-on-the-sky', 'vpr-news'}
 radio = Program(name='Vermont Public Radio', title='Vermont Public Radio Live Stream',
                 url='https://vpr.streamguys1.com/vpr96.mp3',
                 text="Vermont's NPR News Source",
-                small_img='https://mediad.publicbroadcasting.net/p/vpr/files/live-stream-logo.png',
-                large_img='https://mediad.publicbroadcasting.net/p/vpr/files/live-stream-logo.png',
+                small_img='https://s3.amazonaws.com/www.vpr.net/apps/images/live-stream-logo.png',
+                large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/live-stream-logo.png',
                 is_podcast=False)
 
 jazz = Program(name='VPR Jazz', title='VPR Jazz Live Stream',
                url='https://vprjazz.streamguys1.com/vpr64-mobile.mp3',
                text="Jazz24 features the greatest jazz artists of all time, like Miles Davis, Billie Holiday and Dave Brubeck; as well as today’s top talents, like Wynton Marsalis, Diana Krall and Pat Metheny. You'll also find some surprises from time to time, seasoning the jazz gumbo with blues, funk and Latin jazz.",
-               small_img='https://mediad.publicbroadcasting.net/p/vpr/files/jazz-logo.png',
-               large_img='https://mediad.publicbroadcasting.net/p/vpr/files/jazz-logo.png',
+               small_img='https://s3.amazonaws.com/www.vpr.net/apps/images/jazz-logo.png',
+               large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/jazz-logo.png',
                is_podcast=False)
 
 classical = Program(name='VPR Classical', title='VPR Classical Live Stream',
                     url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
                     text="VPR Classical is Vermont's statewide classical music station. We bring you the broad world of classical music with a strong local connection: local hosts throughout the week, live performances, news about events in your community, and more.",
-                    small_img='https://mediad.publicbroadcasting.net/p/vpr/files/classical-logo.png',
-                    large_img='https://mediad.publicbroadcasting.net/p/vpr/files/classical-logo.png',
+                    small_img='https://s3.amazonaws.com/www.vpr.net/apps/images/classical-logo.png',
+                    large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/classical-logo.png',
                     is_podcast=False)
 
 
