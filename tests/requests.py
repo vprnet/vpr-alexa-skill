@@ -23,3 +23,11 @@ def list_programs():
 def play_program(program='totally not a program'):
     json = _read_request_json('play_program.json').read()
     return io.StringIO(json.replace('{{VALUE}}', program))
+
+
+def cancel():
+    return _read_request_json('cancel.json')
+
+
+def help():
+    return _read_request_json('help.json')

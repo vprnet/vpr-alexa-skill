@@ -72,6 +72,11 @@ def select_program(program_name):
     return play_program(program_name)
 
 
+@ask.intent('AMAZON.HelpIntent')
+def help():
+    return question(render_template('help'))
+
+
 @ask.on_playback_started()
 def started(offset, token):
     """
@@ -121,7 +126,7 @@ def stop_session():
 @ask.intent('AMAZON.CancelIntent')
 def cancel_session():
     logger.info('cancel requested')
-    return statement('Thanks for listening!')
+    return statement('')
 
 
 @ask.session_ended

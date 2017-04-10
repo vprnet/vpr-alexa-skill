@@ -134,3 +134,26 @@ def test_request_bad_program(client):
     response = post(client, requests.play_program())
 
     assert 'Vermont Public Radio' in response['response']['outputSpeech']['text']
+
+
+def test_cancel_quits_session(client):
+    """
+    User should be able to cancel the interaction according to Amazon
+    :param client:
+    :return:
+    """
+    response = post(client, requests.cancel())
+    assert response['response']['shouldEndSession']
+    assert response['response']['outputSpeech']['text'] == ''
+
+
+def test_help_intent(client):
+    """
+    Users need to receive a special help prompt when asking for help.
+    :param client:
+    :return:
+    """
+    response = post(client, requests.help())
+    assert response['response']['shouldEndSession'] is False
+    assert 'I can help you listen to your favorite Vermont Public Radio' in \
+           response['response']['outputSpeech']['text']
