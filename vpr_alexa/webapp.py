@@ -2,7 +2,7 @@
 Vermont Public Radio Alexa Skill
 """
 import os
-from flask import Flask, Blueprint, render_template, make_response
+from flask import Flask, Blueprint, render_template
 from flask_ask import Ask, question, statement, audio
 from vpr_alexa import programs, logger
 
@@ -132,7 +132,7 @@ def cancel_session():
 @ask.session_ended
 def session_ended():
     logger.info('ending session')
-    return make_response()
+    return "{}", 200
 
 
 def create_app():

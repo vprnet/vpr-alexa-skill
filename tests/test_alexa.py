@@ -168,5 +168,5 @@ def test_saying_nothing_silently_ends_session(client):
     """
     response = client.post('/ask', data=requests.say_nothing())
     assert response.status_code == 200
-    assert response.content_length == 0
+    assert response.data == b"{}"
 
