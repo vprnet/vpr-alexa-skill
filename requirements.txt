@@ -1,4 +1,4 @@
-flask-ask
+git+https://github.com/voutilad/flask-ask
 feedparser
 pytest
 gunicorn

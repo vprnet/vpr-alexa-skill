@@ -129,12 +129,6 @@ def cancel_session():
     return statement('')
 
 
-@ask.session_ended
-def session_ended():
-    logger.info('ending session')
-    return "{}", 200
-
-
 def create_app():
     """
     Initialize a Flask web application instance and wire up our Alexa blueprint
@@ -156,6 +150,6 @@ def create_app():
             app.config['ASK_VERIFY_REQUESTS'] = False
 
     app.register_blueprint(alexa)
-    ask.init_app(app)
+    ask.init_app(app, path='templates.yaml')
 
     return app
