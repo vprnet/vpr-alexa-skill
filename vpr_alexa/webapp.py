@@ -59,11 +59,17 @@ def play_program(program_name=''):
         else:
             speech = render_template('play_livestream', name=program.name)
 
-        return audio(speech) \
+        response = audio(speech) \
             .play(program.url) \
             .standard_card(title=program.title, text=program.text,
                            small_image_url=program.small_img,
                            large_image_url=program.large_img)
+
+        # save our token before we respond!
+        token = response._response['directives'][0]['audioItem']['stream']['token']
+        logger.info('program %s requested, token %s generated.' % (program.name, token))
+        stream_cache[token] = program.url
+        return response
 
     except Exception as e:
         logger.error('Failed to launch program for program_name: %s'
@@ -91,9 +97,9 @@ def started(offset, token):
     The skill gets notified when the stream's about to start. This allows for
     any state handling, but also for now is just helpful for debugging.
     """
-    url = ask.current_stream.url
+    url = stream_cache.get(token, None)
     logger.info('Playback of url %s started at %d ms for token %s' % (url, offset, token))
-    stream_cache[token] = url
+    #stream_cache[token] = url
     return "{}", 200
 
 
