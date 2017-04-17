@@ -131,14 +131,19 @@ def resume():
     """
     token = ask.current_stream.token
     logger.info('trying to resume token: %s' % token)
+    
     if token in stream_cache:
         url = stream_cache[token]
         if url in [programs.radio.url, programs.classical.url, programs.jazz.url]:
             logger.info('restarting a live stream for url %s' % url)
-            return audio().play(url)
+            response = audio().play(url)
         else:
             logger.info('resuming a podcast at url: %s' % url)
-            return audio().resume()
+            response = audio().resume()
+        
+        # Preserve the token because it gets jacked up by Flask-Ask
+        response._response['directives'][0]['audioItem']['stream']['token'] = token
+        return response
 
     return statement('Sorry, I could not resume your audio.')
 
