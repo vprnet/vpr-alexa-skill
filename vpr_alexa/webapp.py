@@ -110,10 +110,16 @@ def pause():
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
     """
-    Resume a paused audio stream.
+    Resume a paused audio stream. Bit hacky at the moment, but we cannot really "resume"
+    a live stream. We can resume podcasts though.
     """
-    logger.info('resuming a stream using current_stream: %s' % str(ask.current_stream.url))
-    return audio().resume()
+    url = ask.current_stream.url
+    if url in [programs.radio.url, programs.classical.url, programs.jazz.url]:
+        logger.info('restarting a live stream for url %s' % url)
+        return audio().play(url)
+    else:
+        logger.info('resuming a podcast at url: %s' % url)
+        return audio().resume()
 
 
 @ask.intent('AMAZON.StopIntent')
