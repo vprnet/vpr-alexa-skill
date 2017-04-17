@@ -1,1 +1,1 @@
-web: gunicorn vpr_alexa.wsgi
+web: gunicorn -w 1 vpr_alexa.wsgi
