@@ -136,6 +136,12 @@ def not_handled():
     return statement(render_template('unsupported'))
 
 
+@ask.intent('AMAZON.StartOverIntent')
+def start_over():
+    """ Eventually this might be good to implement for podcasts. """
+    return not_handled()
+
+
 @ask.intent('AMAZON.LoopOffIntent')
 def loop_off():
     return not_handled()
