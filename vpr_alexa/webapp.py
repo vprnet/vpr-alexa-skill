@@ -2,6 +2,7 @@
 Vermont Public Radio Alexa Skill
 """
 import os
+import logging
 from flask import Flask, Blueprint, render_template
 from flask_ask import Ask, question, statement, audio
 from vpr_alexa import programs, logger
@@ -197,6 +198,8 @@ def create_app():
     app.secret_key = os.environ['FLASK_SECRET_KEY']
     if 'FLASK_DEBUG' in os.environ:
         app.debug = True
+        logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+
     if 'DISABLE_ASK_VERIFY_REQUESTS' in os.environ:
         if os.environ['DISABLE_ASK_VERIFY_REQUESTS'].lower() == 'true':
             logger.info('!!! Disabling ASK Request verification')
