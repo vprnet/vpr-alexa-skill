@@ -4,7 +4,7 @@ Vermont Public Radio Alexa Skill
 import os
 import logging
 from flask import Flask, Blueprint, render_template
-from flask_ask import Ask, question, statement, audio, current_stream
+from flask_ask import Ask, question, statement, audio
 from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
@@ -112,7 +112,7 @@ def resume():
     """
     Resume a paused audio stream.
     """
-    logger.info('resuming a stream using current_stream: %s' % str(current_stream))
+    logger.info('resuming a stream using current_stream: %s' % str(ask.current_stream))
     return audio().resume()
 
 
