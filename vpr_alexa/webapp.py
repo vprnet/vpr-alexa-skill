@@ -118,7 +118,7 @@ def pause():
     Suspends playback of Audio. Should be resume-able via AMAZON.ResumeIntent
     """
     logger.info('pausing a stream')
-    return audio('Pausing').stop()
+    return audio().stop()
 
 
 @ask.intent('AMAZON.ResumeIntent')
@@ -127,7 +127,7 @@ def resume():
     Resume a paused audio stream.
     """
     logger.info('resuming a stream')
-    return audio('Resuming').resume()
+    return audio().resume()
 
 
 @ask.intent('AMAZON.StopIntent')
