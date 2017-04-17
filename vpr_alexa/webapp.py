@@ -123,7 +123,7 @@ def resume():
     """
     token = ask.current_stream.token
     
-    if token in active_streams:
+    if token in stream_cache:
         url = active_streams[token]
         if url in [programs.radio.url, programs.classical.url, programs.jazz.url]:
             logger.info('restarting a live stream for url %s' % url)
