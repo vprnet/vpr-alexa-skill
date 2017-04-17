@@ -76,7 +76,9 @@ def select_program(program_name):
 def help():
     return question(render_template('help'))
 
-
+# -----------------------------
+#    AudioPlayer Directives
+# -----------------------------
 @ask.on_playback_started()
 def started(offset, token):
     """
@@ -127,6 +129,51 @@ def stop_session():
 def cancel_session():
     logger.info('cancel requested')
     return statement('')
+
+
+def not_handled():
+    """ Common response for unhandled AudioPlayer directives. """
+    return statement(render_template('unsupported'))
+
+
+@ask.intent('AMAZON.LoopOffIntent')
+def loop_off():
+    return not_handled()
+
+
+@ask.intent('AMAZON.LoopOnIntent')
+def loop_on():
+    return not_handled()
+
+
+@ask.intent('AMAZON.NextIntent')
+def next():
+    return not_handled()
+
+
+@ask.intent('AMAZON.PreviousIntent')
+def previous():
+    return not_handled()
+
+
+@ask.intent('AMAZON.RepeatIntent')
+def repeat():
+    return not_handled()
+
+
+@ask.intent('AMAZON.ShuffleOffIntent')
+def shuffle_off():
+    return not_handled()
+
+
+@ask.intent('AMAZON.ShuffleOnIntent')
+def shuffle_on():
+    return not_handled()
+
+
+@ask.intent('AMAZON.ShuffleOverIntent')
+def shuffle_over():
+    return not_handled()
 
 
 def create_app():
