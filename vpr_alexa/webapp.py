@@ -86,7 +86,8 @@ def started(offset, token):
     The skill gets notified when the stream's about to start. This allows for
     any state handling, but also for now is just helpful for debugging.
     """
-    logger.info('Playback started at %d ms for token %s' % (offset, token))
+    url = ask.current_stream.url
+    logger.info('Playback of url %s started at %d ms for token %s' % (url, offset, token))
 
 
 @ask.on_playback_stopped()
@@ -95,7 +96,8 @@ def stopped(offset, token):
     The skill gets notified when the stream is stopped. This allows for
     any state handling, but also for now is just helpful for debugging.
     """
-    logger.info('Playback stopped at %d ms for token %s' % (offset, token))
+    url = ask.current_stream.url
+    logger.info('Playback of url %s stopped at %d ms for token %s' % (url, offset, token))
 
 
 @ask.intent('AMAZON.PauseIntent')
