@@ -112,7 +112,7 @@ def resume():
     """
     Resume a paused audio stream.
     """
-    logger.info('resuming a stream using current_stream: %s' % str(ask.current_stream))
+    logger.info('resuming a stream using current_stream: %s' % str(ask.current_stream.url))
     return audio().resume()
 
 
