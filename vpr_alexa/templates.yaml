@@ -26,3 +26,5 @@ help:
   If you'd like to hear the list of programs and streams I can play for you, simply say "list programs."
   Or, you can always say cancel to abort.
   Now, which would you like?
+
+unsupported: Sorry, this skill does't support that command.
