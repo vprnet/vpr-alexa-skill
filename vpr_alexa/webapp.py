@@ -122,7 +122,7 @@ def resume():
     a live stream. We can resume podcasts though.
     """
     token = ask.current_stream.token
-    
+    logger.info('trying to resume token: %s' % token)
     if token in stream_cache:
         url = stream_cache[token]
         if url in [programs.radio.url, programs.classical.url, programs.jazz.url]:
