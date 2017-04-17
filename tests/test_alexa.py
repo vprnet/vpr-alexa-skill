@@ -183,4 +183,18 @@ def test_saves_tokens(client):
 
     assert token in stream_cache
     assert stream_cache[token] == jazz.url
+
+
+
+def test_cache_debug_interface(client):
+    fake = {'1234': 'https://sisu.io'}
+
+    with patch.dict('vpr_alexa.webapp.stream_cache', fake):
+        response = client.get('/debug/cache')
+        assert response.status_code == 200
+
+        cache = json.loads(response.data.decode('utf-8'))
+        assert cache
+        assert '1234' in cache
+        assert cache['1234'] == 'https://sisu.io'
     

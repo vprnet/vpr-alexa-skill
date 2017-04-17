@@ -2,6 +2,7 @@
 Vermont Public Radio Alexa Skill
 """
 import os
+import json
 import logging
 import cachetools
 from flask import Flask, Blueprint, render_template
@@ -10,6 +11,7 @@ from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
 alexa = Blueprint('alexa', __name__)
+debug = Blueprint('debug', __name__)
 ask = Ask(route=ASK_ROUTE)
 
 stream_cache = cachetools.TTLCache(1024, 60 * 60 * 2)
@@ -202,6 +204,13 @@ def shuffle_over():
     return not_handled()
 
 
+# DEBUG CACHE
+
+@debug.route('/cache')
+def debug_cache():
+    return json.dumps(dict(stream_cache))
+
+
 def create_app():
     """
     Initialize a Flask web application instance and wire up our Alexa blueprint
@@ -215,6 +224,7 @@ def create_app():
         return None
 
     app.secret_key = os.environ['FLASK_SECRET_KEY']
+    app.register_blueprint(debug, url_prefix='/debug')
     if 'FLASK_DEBUG' in os.environ:
         app.debug = True
         logging.getLogger('flask_ask').setLevel(logging.DEBUG)
