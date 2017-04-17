@@ -1,7 +1,8 @@
 """
 Tests against VPR's Amazon Alexa Skill webapp logic.
 """
-from vpr_alexa.webapp import create_app
+from vpr_alexa.webapp import create_app, stream_cache
+from vpr_alexa.programs import jazz
 from tests.fixtures import *
 import tests.requests as requests
 
@@ -170,3 +171,16 @@ def test_saying_nothing_silently_ends_session(client):
     assert response.status_code == 200
     assert response.data == b"{}"
 
+
+def test_saves_tokens(client):
+    """
+    Test that we can start and stop streams and preserve tokens.
+    """
+    response =  post(client, requests.play_program('jazz'))
+    token = response['response']['directives'][0]['audioItem']['stream']['token']
+    
+    post(client, requests.playback_started(token))
+
+    assert token in stream_cache
+    assert stream_cache[token] == jazz.url
+    

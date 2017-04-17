@@ -27,3 +27,4 @@ six==1.10.0
 tox==2.7.0
 virtualenv==15.1.0
 Werkzeug==0.12.1
+cachetools==2.0.0

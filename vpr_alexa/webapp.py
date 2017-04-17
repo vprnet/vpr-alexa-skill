@@ -3,6 +3,7 @@ Vermont Public Radio Alexa Skill
 """
 import os
 import logging
+import cachetools
 from flask import Flask, Blueprint, render_template
 from flask_ask import Ask, question, statement, audio
 from vpr_alexa import programs, logger
@@ -10,6 +11,8 @@ from vpr_alexa import programs, logger
 ASK_ROUTE = '/ask'
 alexa = Blueprint('alexa', __name__)
 ask = Ask(route=ASK_ROUTE)
+
+stream_cache = cachetools.TTLCache(1024, 60 * 60 * 2)
 
 
 @ask.launch
@@ -88,6 +91,8 @@ def started(offset, token):
     """
     url = ask.current_stream.url
     logger.info('Playback of url %s started at %d ms for token %s' % (url, offset, token))
+    stream_cache[token] = url
+    return "{}", 200
 
 
 @ask.on_playback_stopped()
@@ -98,6 +103,7 @@ def stopped(offset, token):
     """
     url = ask.current_stream.url
     logger.info('Playback of url %s stopped at %d ms for token %s' % (url, offset, token))
+    return "{}", 200
 
 
 @ask.intent('AMAZON.PauseIntent')
@@ -115,13 +121,18 @@ def resume():
     Resume a paused audio stream. Bit hacky at the moment, but we cannot really "resume"
     a live stream. We can resume podcasts though.
     """
-    url = ask.current_stream.url
-    if url in [programs.radio.url, programs.classical.url, programs.jazz.url]:
-        logger.info('restarting a live stream for url %s' % url)
-        return audio().play(url)
-    else:
-        logger.info('resuming a podcast at url: %s' % url)
-        return audio().resume()
+    token = ask.current_stream.token
+    
+    if token in active_streams:
+        url = active_streams[token]
+        if url in [programs.radio.url, programs.classical.url, programs.jazz.url]:
+            logger.info('restarting a live stream for url %s' % url)
+            return audio().play(url)
+        else:
+            logger.info('resuming a podcast at url: %s' % url)
+            return audio().resume()
+
+    return statement('Sorry, I could not resume your audio.')
 
 
 @ask.intent('AMAZON.StopIntent')

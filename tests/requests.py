@@ -38,3 +38,9 @@ def help():
 
 def say_nothing():
     return _read_request_json('say_nothing.json')
+
+
+def playback_started(token):
+    json = _read_request_json('playback_started.json').read()
+    return io.StringIO(json.replace('{{TOKEN}}', token))
+
