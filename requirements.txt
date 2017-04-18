@@ -8,6 +8,7 @@ feedparser==5.2.1
 Flask==0.12.1
 #Flask-Ask==0.8.9
 git+https://github.com/voutilad/flask-ask
+redis
 gunicorn==19.7.1
 idna==2.5
 itsdangerous==0.24
