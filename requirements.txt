@@ -7,8 +7,8 @@ cryptography==1.8.1
 feedparser==5.2.1
 Flask==0.12.1
 #Flask-Ask==0.8.9
-git+https://github.com/voutilad/flask-ask
-redis
+git+https://github.com/voutilad/flask-ask@2258cff0bacf7653d1839675c23dd327059ecae2
+redis==2.10.5
 gunicorn==19.7.1
 idna==2.5
 itsdangerous==0.24
