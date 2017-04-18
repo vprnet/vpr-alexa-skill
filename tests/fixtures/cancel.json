@@ -9,6 +9,24 @@
       "userId": "amzn1.ask.account.AE2J6BKIQZQLYZX64QV2BZRXJNMXHBQNH2LWYUPLWN5JAAV6G6QHZTXCP3YTHZQPLLCLVH5P6UFLTDXDAV427OPXUMVINAGQAKNEPGERPROZALOAZSY5N3BYWOSFXHOFBDV6GUVTQSQLAJDLZGPXBZQBPS5PEP6PIKVNS6QGWXKX6NARB3WVQAZ6YCLORZMEP5XJWDPOBGFMYWA"
     },
     "new": true
+  },"context": {
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.701fcf78-41e3-4272-9448-689dadef8858"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.AE2J6BKIQZQLYZX64QV2BZRXJNMXHBQNH2LWYUPLWN5JAAV6G6QHZTXCP3YTHZQPLLCLVH5P6UFLTDXDAV427OPXUMVINAGQAKNEPGERPROZALOAZSY5N3BYWOSFXHOFBDV6GUVTQSQLAJDLZGPXBZQBPS5PEP6PIKVNS6QGWXKX6NARB3WVQAZ6YCLORZMEP5XJWDPOBGFMYWA"
+      },
+      "device": {
+        "supportedInterfaces": {
+          "AudioPlayer": {}
+        }
+      }
+    },
+    "AudioPlayer": {
+      "offsetInMilliseconds": 0,
+      "playerActivity": "IDLE"
+    }
   },
   "request": {
     "type": "IntentRequest",

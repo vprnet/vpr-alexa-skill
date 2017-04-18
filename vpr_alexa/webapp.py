@@ -5,11 +5,26 @@ import os
 import logging
 from flask import Flask, Blueprint, render_template
 from flask_ask import Ask, question, statement, audio
+from werkzeug.contrib.cache import SimpleCache, RedisCache
 from vpr_alexa import programs, logger
 
 ASK_ROUTE = '/ask'
 alexa = Blueprint('alexa', __name__)
-ask = Ask(route=ASK_ROUTE)
+
+DEFAULT_TIMEOUT = 60 * 60
+if 'REDIS_URL' in os.environ:
+    url = os.environ.get('REDIS_URL', '')
+    if url.startswith('redis://'):
+        # redis://h:pabf0075a117fd75136f95a2502f6bd1d07224afb6e1798a3897fc47c81e096ca@ec2-34-204-242-91.compute-1.amazonaws.com:10449
+        parts = url.split(':')
+        cache = RedisCache(host=parts[2].split('@')[1],
+                           port=int(parts[3]),
+                           password=parts[2].split('@')[0],
+                           default_timeout=DEFAULT_TIMEOUT)
+else:
+    cache = SimpleCache(default_timeout=DEFAULT_TIMEOUT)
+
+ask = Ask(route=ASK_ROUTE, stream_cache=cache)
 
 
 @ask.launch
