@@ -6,7 +6,7 @@ click==6.7
 cryptography==1.8.1
 feedparser==5.2.1
 Flask==0.12.1
--e git+https://github.com/voutilad/flask-ask@redis-v3#egg=flask-ask
+git+https://github.com/johnwheeler/flask-ask@bff0e42fda282adf368b9d97b66e1ea0b2584bd8
 redis==2.10.5
 gunicorn==19.7.1
 idna==2.5
