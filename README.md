@@ -6,9 +6,9 @@ Using Alexa AudioDirectives, it allows users to:
 
 * play episodic (podcast) VPR programming
 * stream live VPR programming including:
-  ** VPR Live Stream
-  ** VPR Jazz
-  ** VPR Classical
+  * VPR Live Stream
+  * VPR Jazz
+  * VPR Classical
   
 ## Running the Alexa Skill
 
