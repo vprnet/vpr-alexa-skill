@@ -84,15 +84,24 @@ def play_program(program_name=''):
 
 @ask.intent('SelectProgram', mapping={'program_name': 'ProgramName'})
 def select_program(program_name):
+    """
+    Catches an utterance just asking for a program by name. Designed
+    for receiving the response when a user lists programs.
+    """
     return play_program(program_name)
 
 
 @ask.intent('AMAZON.HelpIntent')
 def help():
+    """ General 'help' handler. """
     return question(render_template('help'))
 
 # -----------------------------
 #    AudioPlayer Directives
+#  - - - - - - - - - - - - - - 
+# These are the primary handlers for all the audio directives
+# required by Amazon. Even those that we don't use need to be
+# properly implemented to nicely respond to the request.
 # -----------------------------
 @ask.on_playback_started()
 def started(offset, token):
@@ -193,7 +202,12 @@ def shuffle_over():
 
 def create_app():
     """
-    Initialize a Flask web application instance and wire up our Alexa blueprint
+    Initialize a Flask web application instance and wire up our Alexa blueprint.
+
+    Other modules/code should use this function as a way to properly construct a
+    functional instance of the web application. All environment variable logic is
+    handled here and used to wire up the Flask instance.
+
     :return: new instance of Flask
     """
     app = Flask(__name__)

@@ -1,5 +1,11 @@
 """
-Test fixtures for simulating JSON input from Alexa
+Test fixtures for simulating JSON input from Alexa.
+
+These functions consolidate the logic for reading the fixture json
+files from disk and properly returning a File-like object for
+passing directly to things like Flask's `test_client`, which requires
+a File-like object for reading the POST data to send.
+
 """
 import os
 import io

@@ -14,14 +14,15 @@ Using Alexa AudioDirectives, it allows users to:
 
 It's easiest to run the skill in [Heroku](https://heroku.com) using the provided [Procfile](./Procfile). Follow the [getting started on Heroku with Python](https://devcenter.heroku.com/articles/getting-started-with-python) documentation online.
 
-* **FLASK_SECRET_KEY**
+* `FLASK_SECRET_KEY`
   * Sets the `SECRET_KEY` value on the Flask app. See [http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values](http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values)
-* **DISABLE_ASK_VERIFY_REQUESTS** (optional)
+* `DISABLE_ASK_VERIFY_REQUESTS` (optional)
   * _True_ - Flask-Ask will not confirm the request originated from Amazon (allowing you to test from any system)
   * _False_ - [Default] all requests are checked to see if they originate from Amazon
-* **REDIS_URL** (optional)
+* `REDIS_URL` (optional)
   * A Heroku-like URL to a Redis instance to use for Alexa session caching. 
   * *Note: Heroku-like means following the `redis://h:..` pattern. If you add a Redis add-on via Heroku, it should automatically set this environment variable on your dyno.*
+
 
 ## Application Design
 
@@ -30,6 +31,8 @@ The project is logically split out across a few modules:
 * **webapp.py** - main web application logic, including Alexa Skills Kit intent handling
 * **programs.py** - VPR programming data model, integration to VPR's podcast site for lookups
 * **wsgi.py** - WSGI setup for running in something like [gunicorn](https://gunicorn.org)
+
+*Note: All Alexa requests target the `/ask` path on the application.*
 
 ## Contributing
 
