@@ -42,9 +42,9 @@ The project is built to work with both **Python 2.7** and **Python 3.6**. If you
 
 1. Clone the project: `git clone https://github.com/.../vpr-alexa-skill`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Verify you project through testing
-  1. Using tox: `tox`
-  2. Using pytest directly: `pytest`
+3. Verify you project through testing!
+  * Using tox: `tox`
+  * Using pytest directly: `pytest`
    
 ### Tests!
 
