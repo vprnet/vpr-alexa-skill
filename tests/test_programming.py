@@ -4,7 +4,7 @@ Tests against the VPR Program logic including fetching Podcasts information.
 import os
 from mock import patch
 
-from tests.fixtures import mock_vt_ed, mock_eots_ed
+from tests.fixtures import mock_vt_ed, mock_bls_ed, mock_eots_ed
 from vpr_alexa import programs
 
 
@@ -29,6 +29,26 @@ def test_latest_vt_edition(mock):
                       'vermont addition']:
         check(utterance)
 
+
+@patch('vpr_alexa.programs._get_feed', return_value=mock_bls_ed)
+def test_latest_bls(mock):
+    """
+    Make sure we can fetch the latest episode from the podcast feed and get
+    its metadata
+    """
+    def check(utterance):
+        program = programs.get_program(utterance)
+        assert program.name == 'Brave Little State'
+        assert program.title == 'This is a pretend Brave Little State'
+        assert program.text == 'This episode is pretty excellent.'
+        assert program.url == 'https://cpa.ds.npr.org/vpr/audio/2017/03/bls.mp3'
+        img_url = 'https://static.feedpress.it/logo/vpr-brave-little-state.png'
+        assert program.small_img == img_url
+        assert program.large_img == img_url
+        assert program.is_podcast
+
+    for utterance in ['brave little state', 'brave state', 'brave']:
+        check(utterance)
 
 
 @patch('vpr_alexa.programs._get_feed', return_value=mock_eots_ed)

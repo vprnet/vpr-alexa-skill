@@ -90,6 +90,27 @@ def test_play_program(mock, client):
     assert len(card['image']) == 2
 
 
+@patch('vpr_alexa.programs.get_program', return_value=mock_bls_program)
+def test_bls(mock, client):
+    """
+    Can we play a Brave Little State episode and get the resulting Card?
+    :param mock: mock Brave Little State Program
+    :param client: Flask test client
+    """
+
+    response = post(client, requests.play_program("brave little state"))
+    assert 'Playing the latest Brave Little State titled ' \
+           'This is a pretend Brave Little State' \
+           in response['response']['outputSpeech']['text']
+    assert 'AudioPlayer.Play' in response['response']['directives'][0]['type']
+
+    card = response['response']['card']
+    assert card['title'] == 'This is a pretend Brave Little State'
+    assert 'This episode is pretty excellent' in card['text']
+    assert 'image' in card
+    assert len(card['image']) == 2
+
+
 @patch('vpr_alexa.programs.get_program', return_value=mock_eots_program)
 def test_eots(mock, client):
     """
@@ -169,4 +190,3 @@ def test_saying_nothing_silently_ends_session(client):
     response = client.post('/ask', data=requests.say_nothing())
     assert response.status_code == 200
     assert response.data == b"{}"
-

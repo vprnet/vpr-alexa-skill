@@ -23,6 +23,25 @@ mock_vt_ed = {
 }
 
 
+mock_bls_ed = {
+    'feed': {
+        'title': 'Brave Little State',
+        'image': {
+            'href': 'https://static.feedpress.it/logo/vpr-brave-little-state.png'
+        }
+    },
+    'entries': [{
+        'title': 'This is a pretend Brave Little State',
+        'summary': 'This episode is pretty excellent.',
+        'links': [
+            {'type': 'junk'},
+            {'type': 'audio/mpeg',
+             'href': 'https://cpa.ds.npr.org/vpr/audio/2017/03/bls.mp3'}
+            ]
+    }]
+}
+
+
 mock_eots_ed = {
     'feed': {
         'title': 'Eye on the Sky',
@@ -50,6 +69,16 @@ mock_vted_program = \
             url='https://cpa.ds.npr.org/vpr/audio/2017/03/vted.mp3',
             small_img='https://static.feedpress.it/logo/vpr-vermont-edition.jpg',
             large_img='https://static.feedpress.it/logo/vpr-vermont-edition.jpg',
+            is_podcast=True)
+
+
+mock_bls_program = \
+    Program(name='Brave Little State',
+            title='This is a pretend Brave Little State',
+            text='This episode is pretty excellent.',
+            url='https://cpa.ds.npr.org/vpr/audio/2017/03/vted.mp3',
+            small_img='https://static.feedpress.it/logo/vpr-brave-little-state.png',
+            large_img='https://static.feedpress.it/logo/vpr-brave-little-state.png  ',
             is_podcast=True)
 
 

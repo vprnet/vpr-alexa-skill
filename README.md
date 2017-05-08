@@ -9,7 +9,7 @@ Using Alexa AudioDirectives, it allows users to:
   * VPR Live Stream
   * VPR Jazz
   * VPR Classical
-  
+
 ## Running the Alexa Skill
 
 It's easiest to run the skill in [Heroku](https://heroku.com) using the provided [Procfile](./Procfile). Follow the [getting started on Heroku with Python](https://devcenter.heroku.com/articles/getting-started-with-python) documentation online.
@@ -20,7 +20,7 @@ It's easiest to run the skill in [Heroku](https://heroku.com) using the provided
   * _True_ - Flask-Ask will not confirm the request originated from Amazon (allowing you to test from any system)
   * _False_ - [Default] all requests are checked to see if they originate from Amazon
 * `REDIS_URL` (optional)
-  * A Heroku-like URL to a Redis instance to use for Alexa session caching. 
+  * A Heroku-like URL to a Redis instance to use for Alexa session caching.
   * *Note: Heroku-like means following the `redis://h:..` pattern. If you add a Redis add-on via Heroku, it should automatically set this environment variable on your dyno.*
 
 
@@ -45,11 +45,10 @@ The project is built to work with both **Python 2.7** and **Python 3.6**. If you
 3. Verify you project through testing!
   * Using tox: `tox`
   * Using pytest directly: `pytest`
-   
+
 ### Tests!
 
 The project uses the [pytest](https://docs.pytest.org/en/latest/) framework, keeping testing simple and straightforward.
 
 * Tests are located in [./tests](./tests)
 * Sample Alexa JSON requests are available in [./tests/fixtures](./tests/fixtures)
-

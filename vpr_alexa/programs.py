@@ -11,7 +11,7 @@ Program = namedtuple('Program',
                      ['name', 'title', 'text', 'url',
                       'small_img', 'large_img', 'is_podcast'])
 
-podcasts = {'vermont-edition', 'eye-on-the-sky', 'vpr-news'}
+podcasts = {'vermont-edition', 'eye-on-the-sky', 'vpr-news', 'brave-little-state'}
 
 # List of Streaming Programs with metadata.
 radio = Program(name='Vermont Public Radio', title='Vermont Public Radio Live Stream',
@@ -95,6 +95,8 @@ def get_program(program_name):
 
     if 'edition' in program_name or 'addition' in program_name:
         return latest_podcast_episode('vermont-edition')
+    elif 'brave' in program_name:
+        return latest_podcast_episode('brave-little-state')
     elif 'sky' in program_name or 'weather' in program_name:
         eots = latest_podcast_episode('eye-on-the-sky')
         if str(eots.url).startswith('http://'):
