@@ -51,7 +51,7 @@ def test_welcome(client):
            in response['response']['outputSpeech']['text']
     assert 'You can say ' \
            in response['response']['reprompt']['outputSpeech']['text']
-    assert 'Play the latest Vermont Edition or List Programs' \
+    assert 'List Programs or Play Vermont Public Radio' \
            in response['response']['reprompt']['outputSpeech']['text']
 
 
