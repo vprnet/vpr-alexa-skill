@@ -14,7 +14,8 @@ programs:
   Vermont Edition,
   Eye on the Sky,
   Brave Little State,
-  Jazz.
+  Jazz, 
+  Replay.
 
 play_podcast: Playing the latest {{ name }} titled {{ title }}
 

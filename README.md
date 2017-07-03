@@ -9,6 +9,7 @@ Using Alexa AudioDirectives, it allows users to:
   * VPR Live Stream
   * VPR Jazz
   * VPR Classical
+  * VPR Replay
 
 ## Running the Alexa Skill
 

@@ -28,12 +28,19 @@ jazz = Program(name='VPR Jazz', title='VPR Jazz Live Stream',
                large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/jazz-logo.png',
                is_podcast=False)
 
+replay = Program(name='VPR Replay', title='VPR Replay Live Stream',
+               url='https://vprmix.streamguys1.com/vprmix64.mp3',
+               text="VPR Replay is an eight hour loop containing the latest two episodes of My Place (one hour each) and All The Traditions (three hours each).",
+               small_img='https://s3.amazonaws.com/www.vpr.net/apps/images/replay-logo.png',
+               large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/replay-logo.png',
+               is_podcast=False)
+
 classical = Program(name='VPR Classical', title='VPR Classical Live Stream',
-                    url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
-                    text="VPR Classical is Vermont's statewide classical music station. We bring you the broad world of classical music with a strong local connection: local hosts throughout the week, live performances, news about events in your community, and more.",
-                    small_img='https://s3.amazonaws.com/www.vpr.net/apps/images/classical-logo.png',
-                    large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/classical-logo.png',
-                    is_podcast=False)
+               url='https://vprclassical.streamguys1.com/vprclassical64-mobile.mp3',
+               text="VPR Classical is Vermont's statewide classical music station. We bring you the broad world of classical music with a strong local connection: local hosts throughout the week, live performances, news about events in your community, and more.",
+               small_img='https://s3.amazonaws.com/www.vpr.net/apps/images/classical-logo.png',
+               large_img='https://s3.amazonaws.com/www.vpr.net/apps/images/classical-logo.png',
+               is_podcast=False)
 
 
 def _filter_links(links, link_type):
@@ -108,6 +115,8 @@ def get_program(program_name):
         return jazz
     elif 'classical' in program_name:
         return classical
+    elif 'replay' in program_name:
+        return replay
     elif 'news' in program_name:
         return latest_podcast_episode('vpr-news')
     else:
